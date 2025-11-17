@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>18岁专属生日祝福</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial Rounded MT Bold', 'Helvetica Rounded', Arial, sans-serif;
+            background: #f09da7;
+            min-height: 100vh;
+            overflow: hidden;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        /* 左上角祝福语 */
+        #typing-blessing {
+            position: absolute;
+            top: 1px;
+            left: 1px;
+            max-width: 265px;
+            background: rgba(255, 255, 255, 0.8); /* 透明度改为50% */
+            border-radius: 15px;
+            padding: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            z-index: 100; /* 提高层级确保在最上方 */
+            border: 2px dashed #FF69B4;
+        }
+        
+        #typing-text {
+            font-size: 16px;
+            line-height: 1.5;
+            color: #333;
+            min-height: 80px;
+        }
+        
+        .cursor {
+            display: inline-block;
+            width: 8px;
+            height: 18px;
+            background-color: #FF69B4;
+            margin-left: 2px;
+            animation: blink 1s infinite;
+        }
+        
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+        
+        /* 中间内容区域 */
+        #main-content {
+            text-align: center;
+            padding: 20px;
+            z-index: 90; /* 提高层级确保在最上方 */
+            position: relative;
+        }
+        
+        .birthday-text {
+            margin-top: 20px;
+        }
+        
+        .birthday-text h1 {
+            font-size: 42px;
+            color: #FFFFFF;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            margin-bottom: 15px;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+        }
+        
+        .birthday-text h2 {
+            font-size: 36px;
+            color: #FFFFFF;
+            margin-bottom: 15px;
+            font-family: 'Brush Script MT', cursive;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+        }
+        
+        .birthday-text h3 {
+            font-size: 32px;
+            color: #FFFFFF;
+            font-family: 'Lucida Handwriting', cursive;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* 气泡祝福语 */
+        .bubble {
+            position: absolute;
+            padding: 10px 15px;
+            border-radius: 20px;
+            font-size: 16px;
+            color: #333;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+            z-index: 1; /* 降低层级，允许重叠 */
+            max-width: 150px;
+            text-align: center;
+            animation: popIn 0.5s ease-out;
+            word-wrap: break-word;
+        }
+        
+        @keyframes popIn {
+            0% { transform: scale(0); opacity: 0; }
+            70% { transform: scale(1.1); opacity: 0.8; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        
+        @keyframes fadeOut {
+            0% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+        
+        /* 浮屏元素 */
+        .floating-element {
+            position: absolute;
+            z-index: 0;
+            opacity: 0.7;
+            animation: floatAround 15s infinite linear;
+        }
+        
+        @keyframes floatAround {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            25% { transform: translate(50px, 30px) rotate(90deg); }
+            50% { transform: translate(100px, 0) rotate(180deg); }
+            75% { transform: translate(50px, -30px) rotate(270deg); }
+            100% { transform: translate(0, 0) rotate(360deg); }
+        }
+        
+        .heart {
+            color: #FF69B4;
+            font-size: 24px;
+        }
+        
+        .star {
+            color: #FFD700;
+            font-size: 20px;
+        }
+        
+        .balloon {
+            width: 30px;
+            height: 40px;
+            border-radius: 50%;
+            position: absolute;
+        }
+        
+        .balloon::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 15px;
+            background: rgba(255, 255, 255, 0.7);
+        }
+        
+        .balloon-1 {
+            background: rgba(255, 105, 180, 0.7);
+        }
+        
+        .balloon-2 {
+            background: rgba(255, 215, 0, 0.7);
+        }
+        
+        .balloon-3 {
+            background: rgba(173, 216, 230, 0.7);
+        }
+        
+        .confetti {
+            width: 10px;
+            height: 10px;
+            position: absolute;
+            border-radius: 2px;
+        }
+        
+        .confetti-1 {
+            background: #FF69B4;
+        }
+        
+        .confetti-2 {
+            background: #FFD700;
+        }
+        
+        .confetti-3 {
+            background: #00BFFF;
+        }
+        
+        /* 数字18装饰 */
+        .number-18 {
+            font-size: 120px;
+            font-weight: bold;
+            color: rgba(255, 255, 255, 0.3);
+            position: absolute;
+            top: 57.5%;
+            left: 49%;
+            transform: translate(-50%, -50%);
+            z-index: 0;
+            user-select: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- 左上角祝福语 -->
+    <div id="typing-blessing">
+        <div id="typing-text"></div>
+    </div>
+    
+    <!-- 中间内容区域 -->
+    <div id="main-content">
+        <div class="number-18">18</div>
+        <div class="birthday-text">
+            <h1>Happy Birthday！</h1>
+            <h2>陈曼妮</h2>
+            <h3>18岁生日快乐！</h3>
+        </div>
+    </div>
+    
+    <script>
+        // 键盘输入效果
+        const typingText = document.getElementById('typing-text');
+        const blessingText = "恭喜你迈入18岁！这是人生崭新的起点，愿你带着梦想与勇气，书写属于自己的精彩篇章。愿你的每一天都充满阳光与欢笑，每一刻都被爱与温暖包围。";
+        let charIndex = 0;
+        
+        function typeWriter() {
+            if (charIndex < blessingText.length) {
+                typingText.innerHTML = blessingText.substring(0, charIndex + 1) + '<span class="cursor"></span>';
+                charIndex++;
+                setTimeout(typeWriter, 100);
+            } else {
+                typingText.innerHTML = blessingText;
+            }
+        }
+        
+        // 祝福语数组（使用您提供的100条祝福语）
+        const blessings = [
+            "陈曼妮，生日快乐！",
+            "愿你永远被温柔以待",
+            "每一天都闪闪发光✨",
+            "心想事成，万事胜意",
+            "愿你笑靥如花，明媚不忧伤",
+            "所有的美好都奔你而来",
+            "前程似锦，未来可期",
+            "愿你被世界温柔拥抱",
+            "保持热爱，奔赴山海",
+            "愿你活成自己喜欢的模样",
+            "好运常伴，喜乐平安",
+            "愿你眼里有光，心里有爱",
+            "每一天都比昨天更美好",
+            "愿你无忧无虑，快乐自在",
+            "梦想开花，心愿成真",
+            "小妹要天天开心哦！",
+            "你是最独特的存在",
+            "愿温暖常伴你左右",
+            "生活明朗，万物可爱",
+            "做自己的小太阳🌞",
+            "愿你收获满满的爱",
+            "快乐永驻，幸福长存",
+            "愿你步履不停，前程光明",
+            "所有的幸运都围绕你",
+            "愿你成为更好的自己",
+            "青春永驻，美丽长存",
+            "愿你勇敢追梦，不负韶华",
+            "每一天都充满惊喜",
+            "愿你被幸福紧紧包围",
+            "快乐无限，美好无限",
+            "愿你的人生精彩纷呈",
+            "所有的愿望都实现",
+            "愿你拥有灿烂的明天",
+            "快乐如影随形",
+            "愿你的人生充满阳光",
+            "幸福来敲门，好运永相伴",
+            "愿你收获美好与感动",
+            "快乐永远不打烊",
+            "愿你的人生如诗如画",
+            "所有的美好都如期而至",
+            "愿你被岁月温柔以待",
+            "快乐每一天，幸福每一刻",
+            "愿你的人生绽放光彩",
+            "好运连连，喜事不断",
+            "愿你拥有甜蜜的时光",
+            "快乐永不过期",
+            "愿你的人生充满奇迹",
+            "幸福满满，快乐多多",
+            "愿你收获无限美好",
+            "快乐相伴，幸福相随",
+            "愿你的人生一帆风顺",
+            "所有的梦想都开花",
+            "愿你拥有灿烂的笑容",
+            "快乐无限延伸",
+            "愿你的人生绚丽多彩",
+            "幸福如约而至",
+            "愿你拥有美好的回忆",
+            "快乐永远在线",
+            "愿你的人生充满希望",
+            "好运相伴，幸福相随",
+            "愿你拥有精彩的旅程",
+            "快乐永驻心间",
+            "愿你的人生充满欢乐",
+            "幸福永远陪伴",
+            "愿你拥有美好的未来",
+            "快乐无限大",
+            "愿你的人生充满惊喜",
+            "好运永相随",
+            "愿你拥有甜蜜的梦",
+            "快乐永不止息",
+            "愿你的人生充满温暖",
+            "幸福永远在身旁",
+            "愿你拥有美好的时光",
+            "快乐永远相伴",
+            "愿你的人生充满阳光",
+            "好运永远跟随",
+            "愿你拥有美丽的回忆",
+            "快乐永不停歇",
+            "愿你的人生充满喜悦",
+            "幸福永远围绕",
+            "愿你拥有精彩的人生",
+            "快乐永远存在",
+            "愿你的人生充满爱",
+            "好运永远相伴",
+            "愿你拥有幸福的时光",
+            "快乐永远延续",
+            "愿你的人生充满美好",
+            "幸福永远相随",
+            "愿你拥有灿烂的人生",
+            "快乐永远绽放",
+            "愿你的人生充满精彩",
+            "好运永远守护",
+            "愿你拥有美丽的梦想",
+            "快乐永远闪耀",
+            "愿你的人生充满幸福",
+            "幸福永远陪伴左右",
+            "愿你拥有无限可能",
+            "快乐永远相随",
+            "愿你的人生充满光芒",
+            "好运永远眷顾",
+            "愿你拥有美好的明天",
+            "快乐永远属于你",
+            "愿你的人生充满奇迹",
+            "幸福永远在身边"
+        ];
+        
+        // 气泡祝福语管理
+        const bubbles = [];
+        const maxBubbles = 36;
+        let bubbleCount = 0;
+        let bubbleInterval;
+        
+        function createBubble() {
+            if (bubbleCount >= maxBubbles) {
+                // 移除最早的气泡
+                const oldestBubble = bubbles.shift();
+                if (oldestBubble) {
+                    oldestBubble.style.animation = 'fadeOut 0.5s ease-out forwards';
+                    setTimeout(() => {
+                        if (oldestBubble.parentNode) {
+                            oldestBubble.parentNode.removeChild(oldestBubble);
+                        }
+                    }, 500);
+                    bubbleCount--;
+                }
+            }
+            
+            // 随机选择祝福语
+            const randomBlessing = blessings[Math.floor(Math.random() * blessings.length)];
+            
+            // 创建气泡元素
+            const bubble = document.createElement('div');
+            bubble.className = 'bubble';
+            bubble.textContent = randomBlessing;
+            
+            // 随机位置（布满全屏，允许重叠）
+            const screenWidth = window.innerWidth;
+            const screenHeight = window.innerHeight;
+            
+            // 随机位置，允许重叠
+            const left = Math.random() * (screenWidth - 150);
+            const top = Math.random() * (screenHeight - 80);
+            
+            bubble.style.left = left + 'px';
+            bubble.style.top = top + 'px';
+            
+            // 随机颜色（排除正绿色）
+            const colors = [
+                '#FFB6C1', '#FFD700', '#87CEEB', '#DDA0DD', '#98FB98',
+                '#F0E68C', '#FFA07A', '#20B2AA', '#FF69B4', '#BA55D3',
+                '#9370DB', '#3CB371', '#00BFFF', '#FF6347', '#FFDAB9',
+                '#EEE8AA', '#AFEEEE', '#DB7093', '#FFEFD5'
+            ];
+            const randomColor = colors[Math.floor(Math.random() * colors.length)];
+            bubble.style.backgroundColor = randomColor;
+            
+            document.body.appendChild(bubble);
+            bubbles.push(bubble);
+            bubbleCount++;
+        }
+        
+        function startBubbles() {
+            // 初始创建一些气泡
+            for (let i = 0; i < 5; i++) {
+                createBubble();
+            }
+            
+            // 设置定时器，每0.5秒创建气泡
+            bubbleInterval = setInterval(() => {
+                const randomCount = Math.floor(Math.random() * 2) + 2; // 2-3个
+                for (let i = 0; i < randomCount; i++) {
+                    createBubble();
+                }
+            }, 500); // 修改为0.5秒
+        }
+        
+        // 创建浮屏元素
+        function createFloatingElements() {
+            const elements = [];
+            
+            // 创建爱心
+            for (let i = 0; i < 8; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'floating-element heart';
+                heart.innerHTML = '❤';
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.top = Math.random() * 100 + 'vh';
+                heart.style.animationDuration = (15 + Math.random() * 10) + 's';
+                document.body.appendChild(heart);
+                elements.push(heart);
+            }
+            
+            // 创建星星
+            for (let i = 0; i < 10; i++) {
+                const star = document.createElement('div');
+                star.className = 'floating-element star';
+                star.innerHTML = '★';
+                star.style.left = Math.random() * 100 + 'vw';
+                star.style.top = Math.random() * 100 + 'vh';
+                star.style.animationDuration = (12 + Math.random() * 8) + 's';
+                document.body.appendChild(star);
+                elements.push(star);
+            }
+            
+            // 创建气球
+            for (let i = 0; i < 6; i++) {
+                const balloon = document.createElement('div');
+                balloon.className = `floating-element balloon balloon-${(i % 3) + 1}`;
+                balloon.style.left = Math.random() * 100 + 'vw';
+                balloon.style.top = Math.random() * 100 + 'vh';
+                balloon.style.animationDuration = (20 + Math.random() * 10) + 's';
+                document.body.appendChild(balloon);
+                elements.push(balloon);
+            }
+            
+            // 创建彩色纸屑
+            for (let i = 0; i < 15; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = `floating-element confetti confetti-${(i % 3) + 1}`;
+                confetti.style.left = Math.random() * 100 + 'vw';
+                confetti.style.top = Math.random() * 100 + 'vh';
+                confetti.style.animationDuration = (8 + Math.random() * 7) + 's';
+                document.body.appendChild(confetti);
+                elements.push(confetti);
+            }
+            
+            return elements;
+        }
+        
+        // 页面加载完成后启动效果
+        window.addEventListener('load', () => {
+            setTimeout(typeWriter, 1000);
+            setTimeout(startBubbles, 3000);
+            createFloatingElements();
+        });
+    </script>
+</body>
+</html>
